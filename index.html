@@ -1,120 +1,143 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>36÷4의 해결 방법 탐구 자료</title>
   <style>
     :root {
-      --green-1: #e9f8c9;
-      --green-2: #d7f2a8;
+      --green-1: #effbd4;
+      --green-2: #d9f5a7;
       --green-3: #9dd63b;
-      --green-4: #74b719;
-      --line: #bce77c;
+      --green-4: #6dae17;
+      --line: #b9e77a;
       --pink: #f05265;
       --blue: #23b6e6;
       --yellow: #fff1a8;
       --paper: #fffdf7;
       --ink: #242424;
-      --soft: #f5fbff;
-      --muted: #5f6b7a;
+      --muted: #5b6573;
+      --card: #ffffff;
+      --shadow: 0 14px 34px rgba(37, 99, 235, 0.12);
+      --radius-lg: 26px;
+      --radius-md: 22px;
     }
 
     * { box-sizing: border-box; }
 
     html,
     body {
-      margin: 0;
+      width: 100%;
       min-height: 100%;
-      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      color: var(--ink);
-      background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+      margin: 0;
     }
 
     body {
-      padding: clamp(10px, 1.6vw, 22px);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+      padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+      display: grid;
+      place-items: center;
     }
 
     .worksheet {
-      width: min(1180px, 100%);
-      min-height: calc(100vh - clamp(20px, 3.2vw, 44px));
+      width: min(1280px, 100%);
+      min-height: calc(100svh - 20px);
       margin: 0 auto;
-      padding: clamp(18px, 2.2vw, 28px);
+      padding: clamp(14px, 1.8vw, 24px);
       background: var(--paper);
-      border: 1px solid #e7eef7;
-      border-radius: 26px;
-      box-shadow: 0 16px 38px rgba(37, 99, 235, 0.12);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(14px, 1.8vw, 22px);
+      border: 1px solid #e6eef8;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: clamp(10px, 1.3vw, 16px);
+    }
+
+    header {
+      min-width: 0;
     }
 
     .topline {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
     }
 
     .range {
-      font-size: clamp(21px, 2.3vw, 29px);
+      flex: 0 0 auto;
+      font-size: clamp(22px, 2.2vw, 30px);
       font-weight: 950;
-      letter-spacing: -0.5px;
-      color: #b8b8b8;
+      letter-spacing: -0.7px;
+      color: #b7b7b7;
+      line-height: 1;
     }
 
     .range strong { color: var(--pink); }
 
     h1 {
       margin: 0;
-      font-size: clamp(24px, 3.2vw, 38px);
-      line-height: 1.18;
-      letter-spacing: -1.1px;
+      font-size: clamp(28px, 3.1vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -1.25px;
+      font-weight: 950;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .intro {
-      margin: -6px 0 0;
+      margin: 4px 0 0;
       color: var(--muted);
-      font-size: clamp(16px, 1.55vw, 20px);
-      line-height: 1.45;
-      letter-spacing: -0.3px;
+      font-size: clamp(15px, 1.55vw, 20px);
+      line-height: 1.35;
+      letter-spacing: -0.35px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .landscape-layout {
-      flex: 1;
+      min-height: 0;
       display: grid;
-      grid-template-columns: minmax(520px, 1.1fr) minmax(360px, 0.9fr);
-      gap: clamp(16px, 2vw, 26px);
+      grid-template-columns: minmax(540px, 1.25fr) minmax(360px, 0.85fr);
+      gap: clamp(14px, 1.8vw, 24px);
       align-items: stretch;
     }
 
     .table-card,
     .question-card {
-      border-radius: 24px;
-      background: #ffffff;
+      min-height: 0;
+      border-radius: var(--radius-lg);
+      background: var(--card);
       border: 1px solid #edf2f7;
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
     }
 
     .table-card {
-      padding: clamp(14px, 1.7vw, 22px);
-      display: flex;
-      flex-direction: column;
+      padding: clamp(13px, 1.5vw, 20px);
+      display: grid;
+      grid-template-rows: 1fr auto auto;
       align-items: center;
-      justify-content: center;
-      gap: clamp(11px, 1.4vw, 16px);
-      min-width: 0;
+      justify-items: center;
+      gap: clamp(8px, 1.05vw, 12px);
+      overflow: hidden;
     }
 
     .table-wrap {
+      min-height: 0;
       width: 100%;
       display: grid;
       place-items: center;
-      overflow-x: auto;
+      overflow: visible;
       padding: 2px;
     }
 
     .multiplication-table {
+      --cell: min(calc((100svh - 288px) / 10), calc((62vw - 96px) / 10), 56px);
       border-collapse: separate;
       border-spacing: 0;
       overflow: hidden;
@@ -123,18 +146,19 @@
       background: #ffffff;
       box-shadow: 0 8px 18px rgba(116, 183, 25, 0.14);
       user-select: none;
+      touch-action: manipulation;
     }
 
     .multiplication-table th,
     .multiplication-table td {
-      width: clamp(43px, 4.7vw, 58px);
-      height: clamp(38px, 5.4vh, 52px);
-      min-width: 43px;
+      width: clamp(42px, var(--cell), 56px);
+      height: clamp(40px, var(--cell), 56px);
+      min-width: 42px;
       text-align: center;
       vertical-align: middle;
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      font-size: clamp(19px, 2.15vw, 27px);
+      font-size: clamp(20px, 2.25vw, 28px);
       line-height: 1;
       transition: background-color 0.16s ease, transform 0.16s ease, outline-color 0.16s ease;
     }
@@ -147,7 +171,7 @@
 
     .multiplication-table th {
       background: var(--green-1);
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .multiplication-table thead th {
@@ -157,7 +181,7 @@
     .multiplication-table td {
       cursor: pointer;
       background: #fffefa;
-      font-weight: 550;
+      font-weight: 700;
     }
 
     .multiplication-table td:hover,
@@ -171,7 +195,7 @@
     .multiplication-table .row-focus,
     .multiplication-table .col-focus {
       background: #f5ffd8;
-      font-weight: 900;
+      font-weight: 950;
     }
 
     .multiplication-table .target {
@@ -192,26 +216,29 @@
     }
 
     .tools {
+      width: 100%;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      width: 100%;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: clamp(8px, 1vw, 12px);
     }
 
     button {
-      min-height: 48px;
+      min-width: clamp(112px, 12vw, 150px);
+      min-height: 44px;
       border: 0;
       border-radius: 999px;
-      padding: 11px 20px;
-      font-size: clamp(15px, 1.55vw, 18px);
-      font-weight: 900;
-      letter-spacing: -0.2px;
+      padding: 9px 18px;
+      font-size: clamp(15px, 1.45vw, 18px);
+      font-weight: 950;
+      letter-spacing: -0.3px;
       cursor: pointer;
       color: #17324d;
       background: #e8f7ff;
       box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.07);
       touch-action: manipulation;
+      white-space: nowrap;
     }
 
     button.primary { background: #d8f7ac; }
@@ -221,95 +248,96 @@
 
     .status-line {
       width: min(100%, 620px);
-      min-height: 45px;
+      min-height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 14px;
-      border-radius: 16px;
+      padding: 8px 14px;
+      border-radius: 15px;
       background: #fff9db;
       border: 1px solid #ffe08a;
       text-align: center;
-      font-size: clamp(15px, 1.45vw, 17px);
-      line-height: 1.35;
+      font-size: clamp(14px, 1.35vw, 17px);
+      line-height: 1.3;
       letter-spacing: -0.2px;
     }
 
     .question-card {
-      padding: clamp(16px, 2vw, 24px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: clamp(15px, 1.7vw, 22px);
+      padding: clamp(14px, 1.6vw, 22px);
+      display: grid;
+      grid-template-rows: auto 1fr 1fr;
+      gap: clamp(10px, 1.25vw, 16px);
+      overflow: hidden;
     }
 
     .question-title {
       margin: 0;
-      font-size: clamp(21px, 2.4vw, 29px);
-      line-height: 1.2;
-      letter-spacing: -0.8px;
+      font-size: clamp(24px, 2.45vw, 32px);
+      line-height: 1.12;
+      letter-spacing: -1px;
       font-weight: 950;
     }
 
     .question-row {
+      min-height: 0;
       display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: clamp(13px, 1.6vw, 18px);
+      grid-template-columns: clamp(70px, 7vw, 86px) 1fr;
+      gap: clamp(10px, 1.1vw, 16px);
+      align-items: center;
+      padding: clamp(12px, 1.35vw, 18px);
       border: 1px solid #edf2f7;
       background: #fffefa;
-      border-radius: 22px;
+      border-radius: var(--radius-md);
     }
 
     .q-badge {
-      min-height: 92px;
+      align-self: center;
     }
 
     .mascot {
-      width: 48px;
-      height: 48px;
+      width: clamp(46px, 4.4vw, 56px);
+      height: clamp(46px, 4.4vw, 56px);
       border-radius: 50%;
       background: #fff;
       border: 2px solid #303030;
       display: grid;
       place-items: center;
-      font-size: 23px;
+      font-size: clamp(22px, 2.2vw, 28px);
       box-shadow: 0 2px 0 rgba(0,0,0,0.1);
       transform: rotate(-9deg);
       margin: 0 auto;
     }
 
     .hand-circle {
-      width: 48px;
-      height: 48px;
+      width: clamp(46px, 4.4vw, 56px);
+      height: clamp(46px, 4.4vw, 56px);
       border-radius: 50%;
       background: var(--blue);
       color: white;
       display: grid;
       place-items: center;
-      font-size: 23px;
-      margin: -8px auto 0;
+      font-size: clamp(22px, 2.2vw, 28px);
+      margin: -9px auto 0;
       border: 2px solid #8bdff8;
       box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
     }
 
     .q-number {
       display: block;
-      margin-top: 5px;
+      margin-top: 4px;
       text-align: center;
-      font-size: clamp(36px, 4vw, 48px);
-      line-height: 0.9;
+      font-size: clamp(38px, 4.1vw, 54px);
+      line-height: 0.85;
       color: var(--pink);
       font-weight: 950;
     }
 
     .q-content {
-      padding-top: 7px;
-      font-size: clamp(18px, 2vw, 25px);
-      line-height: 1.42;
-      letter-spacing: -0.5px;
-      font-weight: 700;
+      min-width: 0;
+      font-size: clamp(18px, 1.85vw, 26px);
+      line-height: 1.34;
+      letter-spacing: -0.55px;
+      font-weight: 800;
     }
 
     .answer-line {
@@ -317,78 +345,103 @@
       justify-content: flex-end;
       align-items: center;
       gap: 8px;
-      margin-top: clamp(13px, 1.5vw, 18px);
-      font-size: clamp(20px, 2.1vw, 27px);
-      font-weight: 850;
+      margin-top: clamp(10px, 1.15vw, 16px);
+      font-size: clamp(20px, 2.1vw, 29px);
+      font-weight: 900;
       white-space: nowrap;
     }
 
     .answer-line input {
-      width: clamp(120px, 13vw, 170px);
-      height: 50px;
+      width: clamp(126px, 13vw, 180px);
+      height: clamp(44px, 4.9vw, 58px);
       border: 0;
       border-bottom: 4px solid #252525;
       background: transparent;
       text-align: center;
-      font-size: clamp(22px, 2.4vw, 30px);
+      font-size: clamp(22px, 2.4vw, 32px);
       font-weight: 950;
       outline: none;
       color: #dc2626;
       border-radius: 12px 12px 0 0;
     }
 
-    .answer-line input:focus {
-      background: #fff8d7;
-    }
+    .answer-line input:focus { background: #fff8d7; }
 
-    .screen-reader-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-
-    @media (orientation: landscape) and (max-height: 760px) {
-      body { padding: 10px; }
-      .worksheet { gap: 10px; padding: 16px 18px; }
-      .intro { margin-top: -8px; }
-      .question-card { gap: 12px; }
-      .question-row { padding: 12px; }
-      .multiplication-table th,
-      .multiplication-table td {
-        height: clamp(36px, 5.2vh, 46px);
+    @media (orientation: landscape) and (min-width: 900px) {
+      body {
+        height: 100svh;
+        overflow: hidden;
       }
-      button { min-height: 44px; padding-block: 9px; }
-      .status-line { min-height: 40px; padding-block: 8px; }
+
+      .worksheet {
+        height: calc(100svh - 20px);
+        max-height: 860px;
+      }
     }
 
-    @media (max-width: 900px), (orientation: portrait) {
-      .worksheet { min-height: auto; }
-      .landscape-layout { grid-template-columns: 1fr; }
-      .table-card { align-items: center; }
-      .question-card { justify-content: flex-start; }
-      .question-row { grid-template-columns: 62px 1fr; }
-      .multiplication-table th,
-      .multiplication-table td {
-        width: clamp(37px, 9.1vw, 48px);
-        min-width: 37px;
-        height: 40px;
-        font-size: clamp(17px, 4.3vw, 22px);
+    @media (orientation: landscape) and (min-width: 900px) and (max-height: 760px) {
+      .worksheet { padding: 14px 18px; gap: 8px; }
+      h1 { font-size: clamp(26px, 2.8vw, 36px); }
+      .intro { font-size: clamp(14px, 1.35vw, 17px); margin-top: 2px; }
+      .landscape-layout { gap: 14px; }
+      .table-card { padding: 12px 16px; gap: 8px; }
+      .question-card { padding: 13px 16px; gap: 10px; }
+      .question-row { padding: 11px 14px; }
+      .question-title { font-size: clamp(22px, 2.2vw, 28px); }
+      .q-content { font-size: clamp(17px, 1.7vw, 23px); line-height: 1.28; }
+      .multiplication-table {
+        --cell: min(calc((100svh - 274px) / 10), calc((62vw - 96px) / 10), 54px);
+      }
+      button { min-height: 40px; padding-block: 7px; }
+      .status-line { min-height: 34px; padding-block: 6px; }
+    }
+
+    @media (max-width: 920px), (orientation: portrait) {
+      body {
+        height: auto;
+        overflow: auto;
+        padding: 10px;
+      }
+
+      .worksheet {
+        height: auto;
+        min-height: calc(100svh - 20px);
+      }
+
+      .topline { align-items: flex-start; }
+      h1 { white-space: normal; }
+      .intro { white-space: normal; }
+
+      .landscape-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .table-card { overflow: visible; }
+      .table-wrap { overflow-x: auto; justify-content: start; }
+
+      .multiplication-table {
+        --cell: min(calc((100vw - 88px) / 10), 52px);
+      }
+
+      .question-card {
+        grid-template-rows: auto auto auto;
+        overflow: visible;
+      }
+
+      .question-row {
+        grid-template-columns: 66px 1fr;
+      }
+
+      .tools {
+        flex-wrap: wrap;
       }
     }
 
     @media (hover: none) {
       .multiplication-table td:hover,
-      button:hover {
-        transform: none;
-      }
+      button:hover { transform: none; }
     }
   </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=10216"></script>
 </head>
 <body>
   <main class="worksheet" aria-labelledby="main-title">
