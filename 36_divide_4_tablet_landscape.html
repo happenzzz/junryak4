@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>36÷4의 해결 방법 탐구 자료</title>
+  <style>
+    :root {
+      --green-1: #e9f8c9;
+      --green-2: #d7f2a8;
+      --green-3: #9dd63b;
+      --green-4: #74b719;
+      --line: #bce77c;
+      --pink: #f05265;
+      --blue: #23b6e6;
+      --yellow: #fff1a8;
+      --paper: #fffdf7;
+      --ink: #242424;
+      --soft: #f5fbff;
+      --muted: #5f6b7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+    }
+
+    body {
+      padding: clamp(10px, 1.6vw, 22px);
+    }
+
+    .worksheet {
+      width: min(1180px, 100%);
+      min-height: calc(100vh - clamp(20px, 3.2vw, 44px));
+      margin: 0 auto;
+      padding: clamp(18px, 2.2vw, 28px);
+      background: var(--paper);
+      border: 1px solid #e7eef7;
+      border-radius: 26px;
+      box-shadow: 0 16px 38px rgba(37, 99, 235, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 1.8vw, 22px);
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .range {
+      font-size: clamp(21px, 2.3vw, 29px);
+      font-weight: 950;
+      letter-spacing: -0.5px;
+      color: #b8b8b8;
+    }
+
+    .range strong { color: var(--pink); }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 3.2vw, 38px);
+      line-height: 1.18;
+      letter-spacing: -1.1px;
+    }
+
+    .intro {
+      margin: -6px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.55vw, 20px);
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+
+    .landscape-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(520px, 1.1fr) minmax(360px, 0.9fr);
+      gap: clamp(16px, 2vw, 26px);
+      align-items: stretch;
+    }
+
+    .table-card,
+    .question-card {
+      border-radius: 24px;
+      background: #ffffff;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .table-card {
+      padding: clamp(14px, 1.7vw, 22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(11px, 1.4vw, 16px);
+      min-width: 0;
+    }
+
+    .table-wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      overflow-x: auto;
+      padding: 2px;
+    }
+
+    .multiplication-table {
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 2px solid var(--green-3);
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 8px 18px rgba(116, 183, 25, 0.14);
+      user-select: none;
+    }
+
+    .multiplication-table th,
+    .multiplication-table td {
+      width: clamp(43px, 4.7vw, 58px);
+      height: clamp(38px, 5.4vh, 52px);
+      min-width: 43px;
+      text-align: center;
+      vertical-align: middle;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      font-size: clamp(19px, 2.15vw, 27px);
+      line-height: 1;
+      transition: background-color 0.16s ease, transform 0.16s ease, outline-color 0.16s ease;
+    }
+
+    .multiplication-table tr:last-child th,
+    .multiplication-table tr:last-child td { border-bottom: 0; }
+
+    .multiplication-table th:last-child,
+    .multiplication-table td:last-child { border-right: 0; }
+
+    .multiplication-table th {
+      background: var(--green-1);
+      font-weight: 800;
+    }
+
+    .multiplication-table thead th {
+      background: var(--green-2);
+    }
+
+    .multiplication-table td {
+      cursor: pointer;
+      background: #fffefa;
+      font-weight: 550;
+    }
+
+    .multiplication-table td:hover,
+    .multiplication-table td:focus-visible {
+      background: #fff7cf;
+      transform: scale(1.035);
+      outline: 3px solid #ffd166;
+      outline-offset: -3px;
+    }
+
+    .multiplication-table .row-focus,
+    .multiplication-table .col-focus {
+      background: #f5ffd8;
+      font-weight: 900;
+    }
+
+    .multiplication-table .target {
+      background: var(--yellow) !important;
+      color: #c2410c;
+      font-weight: 950;
+      outline: 4px solid #ffb703;
+      outline-offset: -4px;
+      transform: scale(1.06);
+      position: relative;
+      z-index: 1;
+    }
+
+    .multiplication-table .mirror {
+      background: #ffe4ea !important;
+      color: #be123c;
+      font-weight: 950;
+    }
+
+    .tools {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+    }
+
+    button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: clamp(15px, 1.55vw, 18px);
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      cursor: pointer;
+      color: #17324d;
+      background: #e8f7ff;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.07);
+      touch-action: manipulation;
+    }
+
+    button.primary { background: #d8f7ac; }
+    button.reset { background: #edf2ff; }
+    button:hover { filter: brightness(0.97); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+
+    .status-line {
+      width: min(100%, 620px);
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: #fff9db;
+      border: 1px solid #ffe08a;
+      text-align: center;
+      font-size: clamp(15px, 1.45vw, 17px);
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+    }
+
+    .question-card {
+      padding: clamp(16px, 2vw, 24px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(15px, 1.7vw, 22px);
+    }
+
+    .question-title {
+      margin: 0;
+      font-size: clamp(21px, 2.4vw, 29px);
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+      font-weight: 950;
+    }
+
+    .question-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: clamp(13px, 1.6vw, 18px);
+      border: 1px solid #edf2f7;
+      background: #fffefa;
+      border-radius: 22px;
+    }
+
+    .q-badge {
+      min-height: 92px;
+    }
+
+    .mascot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #303030;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+      transform: rotate(-9deg);
+      margin: 0 auto;
+    }
+
+    .hand-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      margin: -8px auto 0;
+      border: 2px solid #8bdff8;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .q-number {
+      display: block;
+      margin-top: 5px;
+      text-align: center;
+      font-size: clamp(36px, 4vw, 48px);
+      line-height: 0.9;
+      color: var(--pink);
+      font-weight: 950;
+    }
+
+    .q-content {
+      padding-top: 7px;
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.42;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+    }
+
+    .answer-line {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-top: clamp(13px, 1.5vw, 18px);
+      font-size: clamp(20px, 2.1vw, 27px);
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .answer-line input {
+      width: clamp(120px, 13vw, 170px);
+      height: 50px;
+      border: 0;
+      border-bottom: 4px solid #252525;
+      background: transparent;
+      text-align: center;
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 950;
+      outline: none;
+      color: #dc2626;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .answer-line input:focus {
+      background: #fff8d7;
+    }
+
+    .screen-reader-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    @media (orientation: landscape) and (max-height: 760px) {
+      body { padding: 10px; }
+      .worksheet { gap: 10px; padding: 16px 18px; }
+      .intro { margin-top: -8px; }
+      .question-card { gap: 12px; }
+      .question-row { padding: 12px; }
+      .multiplication-table th,
+      .multiplication-table td {
+        height: clamp(36px, 5.2vh, 46px);
+      }
+      button { min-height: 44px; padding-block: 9px; }
+      .status-line { min-height: 40px; padding-block: 8px; }
+    }
+
+    @media (max-width: 900px), (orientation: portrait) {
+      .worksheet { min-height: auto; }
+      .landscape-layout { grid-template-columns: 1fr; }
+      .table-card { align-items: center; }
+      .question-card { justify-content: flex-start; }
+      .question-row { grid-template-columns: 62px 1fr; }
+      .multiplication-table th,
+      .multiplication-table td {
+        width: clamp(37px, 9.1vw, 48px);
+        min-width: 37px;
+        height: 40px;
+        font-size: clamp(17px, 4.3vw, 22px);
+      }
+    }
+
+    @media (hover: none) {
+      .multiplication-table td:hover,
+      button:hover {
+        transform: none;
+      }
+    }
+  </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=10216"></script>
+</head>
+<body>
+  <main class="worksheet" aria-labelledby="main-title">
+    <header>
+      <div class="topline">
+        <span class="range">[<strong>1~2</strong>]</span>
+        <h1 id="main-title">36÷4의 해결 방법을 탐구해봅시다.</h1>
+      </div>
+      <p class="intro">곱셈구구표에서 4단을 살펴보고, 36이 되는 곱셈식을 찾아 몫을 구해 봅시다.</p>
+    </header>
+
+    <section class="landscape-layout" aria-label="곱셈구구 탐구 활동">
+      <div class="table-card">
+        <div class="table-wrap">
+          <table class="multiplication-table" id="guguTable" aria-label="1부터 9까지의 곱셈구구표">
+            <thead>
+              <tr>
+                <th scope="col">×</th>
+                <th scope="col">1</th>
+                <th scope="col">2</th>
+                <th scope="col">3</th>
+                <th scope="col">4</th>
+                <th scope="col">5</th>
+                <th scope="col">6</th>
+                <th scope="col">7</th>
+                <th scope="col">8</th>
+                <th scope="col">9</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="tools" aria-label="활동 도구">
+          <button class="primary" type="button" id="showDanBtn">① 4단 보기</button>
+          <button class="primary" type="button" id="find36Btn">② 36 찾기</button>
+          <button class="reset" type="button" id="resetBtn">초기화</button>
+        </div>
+
+        <div class="status-line" id="statusLine" aria-live="polite">
+          표의 칸을 눌러 곱셈식을 확인해 보세요.
+        </div>
+      </div>
+
+      <section class="question-card" aria-label="물음에 답하세요">
+        <h2 class="question-title">물음에 답하세요.</h2>
+
+        <div class="question-row">
+          <div class="q-badge" aria-hidden="true">
+            <div class="mascot">😊</div>
+            <div class="hand-circle">☝</div>
+            <span class="q-number">1</span>
+          </div>
+          <div class="q-content">
+            <label for="q1">36÷4의 몫을 구하려면 몇 단 곱셈구구를 찾아야 할까요?</label>
+            <div class="answer-line">(<input id="q1" type="text" inputmode="numeric" autocomplete="off" aria-label="1번 답" />)단</div>
+          </div>
+        </div>
+
+        <div class="question-row">
+          <div class="q-badge" aria-hidden="true">
+            <div class="mascot">😊</div>
+            <div class="hand-circle">☝</div>
+            <span class="q-number">2</span>
+          </div>
+          <div class="q-content">
+            <label for="q2">36÷4의 몫을 구해 보세요.</label>
+            <div class="answer-line">(<input id="q2" type="text" inputmode="numeric" autocomplete="off" aria-label="2번 답" />)</div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const tbody = document.getElementById('tableBody');
+    const statusLine = document.getElementById('statusLine');
+    const q1 = document.getElementById('q1');
+    const q2 = document.getElementById('q2');
+
+    function buildTable() {
+      for (let r = 1; r <= 9; r++) {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = r;
+        th.dataset.rowHeader = r;
+        tr.appendChild(th);
+
+        for (let c = 1; c <= 9; c++) {
+          const td = document.createElement('td');
+          td.textContent = r * c;
+          td.dataset.r = r;
+          td.dataset.c = c;
+          td.dataset.value = r * c;
+          td.setAttribute('tabindex', '0');
+          td.setAttribute('role', 'button');
+          td.setAttribute('aria-label', `${r} 곱하기 ${c}는 ${r * c}`);
+          td.addEventListener('click', () => selectCell(r, c));
+          td.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              selectCell(r, c);
+            }
+          });
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll('.row-focus, .col-focus, .target, .mirror').forEach((el) => {
+        el.classList.remove('row-focus', 'col-focus', 'target', 'mirror');
+      });
+    }
+
+    function highlightRow(row) {
+      clearHighlights();
+      const rowHeader = document.querySelector(`[data-row-header="${row}"]`);
+      if (rowHeader) rowHeader.classList.add('row-focus');
+      document.querySelectorAll(`[data-r="${row}"]`).forEach((el) => el.classList.add('row-focus'));
+      statusLine.innerHTML = `<strong>${row}단</strong>에서 36이 되는 곱셈식을 찾아보세요.`;
+    }
+
+    function highlightTarget() {
+      highlightRow(4);
+      const target = document.querySelector('[data-r="4"][data-c="9"]');
+      const mirror = document.querySelector('[data-r="9"][data-c="4"]');
+      if (target) target.classList.add('target');
+      if (mirror) mirror.classList.add('mirror');
+      statusLine.innerHTML = `4단에서 <strong>36</strong>이 되는 칸을 확인해 보세요.`;
+    }
+
+    function selectCell(r, c) {
+      clearHighlights();
+      const rowHeader = document.querySelector(`[data-row-header="${r}"]`);
+      const colHeader = document.querySelector(`thead th:nth-child(${c + 1})`);
+      const cell = document.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+
+      if (rowHeader) rowHeader.classList.add('row-focus');
+      if (colHeader) colHeader.classList.add('col-focus');
+      document.querySelectorAll(`[data-r="${r}"]`).forEach((el) => el.classList.add('row-focus'));
+      document.querySelectorAll(`[data-c="${c}"]`).forEach((el) => el.classList.add('col-focus'));
+      if (cell) cell.classList.add('target');
+
+      const value = r * c;
+      statusLine.innerHTML = `<strong>${r} × ${c} = ${value}</strong>`;
+    }
+
+    function resetAll() {
+      clearHighlights();
+      q1.value = '';
+      q2.value = '';
+      statusLine.innerHTML = '표의 칸을 눌러 곱셈식을 확인해 보세요.';
+    }
+
+    document.getElementById('showDanBtn').addEventListener('click', () => highlightRow(4));
+    document.getElementById('find36Btn').addEventListener('click', highlightTarget);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+    buildTable();
+  </script>
+</body>
+</html>
